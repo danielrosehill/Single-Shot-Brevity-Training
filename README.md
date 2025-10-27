@@ -32,6 +32,10 @@ Single-Shot-Brevity-Training/
 ├── data/                      # Reference responses
 │   ├── chatgpt-verbose-response.md      # Example of too-verbose output
 │   └── ideal-brevity-response.md        # Edited to ideal brevity
+├── iteration/                 # Single-shot training implementation
+│   ├── responses/             # Raw model responses (JSON)
+│   ├── examples/              # Optimized brief response examples
+│   └── system-prompts/        # Model-specific system prompts with examples
 ├── evaluation/                # Evaluation framework
 │   ├── scripts/
 │   │   └── evaluate_models.py    # Main evaluation script
@@ -169,6 +173,107 @@ Each response is analyzed for:
 - **Relevance** - Does it answer the specific questions?
 - **Information density** - Key facts per 100 words
 - **Unnecessary elaboration** - Educational content not requested
+
+## Single-Shot Training Implementation
+
+After identifying the most concise models through baseline evaluation, the next phase implements single-shot training to teach the desired brevity pattern.
+
+### Process Overview
+
+1. **Capture Baseline Responses** - Collect raw model outputs without brevity guidance
+2. **Optimize for Brevity** - Edit each response to model ideal brevity while preserving key information
+3. **Create System Prompts** - Build model-specific system prompts that include the optimized example
+
+### Implementation Structure
+
+The `iteration/` directory contains the complete single-shot training workflow:
+
+#### 1. Raw Responses
+Located in [`iteration/responses/`](iteration/responses/):
+- Raw JSON responses from 5 selected models
+- Includes usage statistics and metadata
+- Models tested:
+  - `anthropic/claude-sonnet-4.5`
+  - `ai21/jamba-large-1.7`
+  - `cohere/command-r-08-2024`
+  - `meta-llama/llama-4-maverick`
+  - `mistralai/mistral-large-2411`
+
+#### 2. Optimized Examples
+Located in [`iteration/examples/`](iteration/examples/):
+- Each model's response edited for optimal brevity
+- Word count reduced by 60-75% while maintaining all essential information
+- Format: `{model-name}_optimized.md`
+- Demonstrates the target response style
+
+**Example optimization:**
+- Original: 459 words (Claude Sonnet 4.5)
+- Optimized: ~150 words
+- Preserved: All tech specs, capacity limits, and 5 product recommendations
+
+#### 3. System Prompts with Examples
+Located in [`iteration/system-prompts/`](iteration/system-prompts/):
+- Complete system prompts for each model
+- Includes core instruction: "You are a thorough but focused assistant"
+- Contains the full user query as an example
+- Shows the optimized response as the expected output format
+- Format: `{model-name}_system_prompt.md`
+
+### Single-Shot Training Methodology
+
+The system prompts use this structure:
+
+```markdown
+# System Prompt - [Model Name]
+
+You are a thorough but focused assistant helping the user with their
+questions and tasks. Provide complete, accurate information while
+maintaining brevity. Structure your responses clearly using bullet
+points and concise explanations. Include all essential details but
+avoid unnecessary elaboration.
+
+## Example Response Format
+
+**User Query:**
+[Full test prompt]
+
+**Assistant Response:**
+[Optimized brief response showing desired format]
+```
+
+This approach leverages single-shot learning - the model sees one concrete example of the desired brevity pattern and applies it to future responses.
+
+### Using the System Prompts
+
+To apply single-shot brevity training:
+
+1. Choose the appropriate system prompt for your model from `iteration/system-prompts/`
+2. Include the entire system prompt (instruction + example) in your API call
+3. The model will learn from the example and apply similar brevity to new queries
+
+**Example usage with OpenRouter:**
+
+```python
+response = requests.post(
+    "https://openrouter.ai/api/v1/chat/completions",
+    headers={
+        "Authorization": f"Bearer {API_KEY}",
+    },
+    json={
+        "model": "anthropic/claude-sonnet-4.5",
+        "messages": [
+            {
+                "role": "system",
+                "content": open('iteration/system-prompts/anthropic_claude-sonnet-4.5_system_prompt.md').read()
+            },
+            {
+                "role": "user",
+                "content": "Your actual query here"
+            }
+        ]
+    }
+)
+```
 
 ## Project Goals
 
