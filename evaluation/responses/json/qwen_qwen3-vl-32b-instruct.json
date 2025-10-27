@@ -1,0 +1,8 @@
+{
+  "model": "qwen/qwen3-vl-32b-instruct",
+  "response": null,
+  "usage": {},
+  "timestamp": "2025-10-27T15:24:16.996807",
+  "success": false,
+  "error": "404 Client Error: Not Found for url: https://openrouter.ai/api/v1/chat/completions"
+}

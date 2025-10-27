@@ -1,0 +1,16 @@
+{
+  "model": "cohere/command-r-08-2024",
+  "response": "Certainly, let's ensure you get the right power bank for your needs! \n\n1. Tech Specs: \n\nTo achieve fast charging for your One Plus Nord 3 5G, you'll want to look for a power bank that supports the SuperVOOC (Super Voltage Optimized Charging) standard. SuperVOOC is a technology developed by OPPO (which is closely associated with OnePlus) to offer incredibly fast charging speeds. It delivers up to 65W of power, enabling rapid charging of compatible devices. \n\nTherefore, the key parameters to look out for are:\n- Power Output: Look for a power bank that can deliver a high power output of at least 65W. \n- Ports and Compatibility: Ensure the power bank has a compatible port (USB-C) that supports the SuperVOOC standard. Some power banks may be labeled as supporting 'OPPO Dart Charge' which is essentially the same as SuperVOOC. \n- Battery Capacity: As you want the largest capacity, opt for a power bank with a high mAh (milliamp-hour) rating. \n\n2. Max Capacity Credibility: \n\nReputable power banks with large capacities typically have a battery capacity of around 20,000 - 25,000 mAh. While there are power banks with even higher capacity ratings available, it's crucial to strike a balance between battery life and the overall weight and size of the power bank for portability. \n\n3. Manufacturer Recommendations with Products and RRPs (Recommended Retail Price): \n\nHere are five reliable manufacturers with recommended power bank products that should fit your criteria: \n\n1. Anker PowerCore Fusion 5000+: \n- Manufacturer: Anker \n- Product Name: PowerCore Fusion 5000+ Power Bank with Wireless Charger, 24W Power Delivery \n- RRP: $49.99 \n\n2. RAVPower 61W PD 3.0 Gauss Pro Power Bank: \n- Manufacturer: RAVPower \n- Product Name: 61W PD 3.0 Gauss Pro Power Bank 26800mAh \n- RRP: $79.99 \n\n3. OBN 27500mAh Portable Charger: \n- Manufacturer: OBN \n- Product Name: 27500mAh Power Bank with Dual 3.0A Output Portable Charger \n- RRP: $59.99 \n\n4. JuiceCo 26800mAh Portable Power Bank: \n- Manufacturer: JuiceCo \n- Product Name: 26800mAh Portable Power Bank 38W Type C Output/Input \n- RRP: $54.99 \n\n5. Spigen Essential F309 Portable Charger: \n- Manufacturer: Spigen \n- Product Name: Essential F309 Portable Charger \n- RRP: $49.99 \n\nThese power banks should offer the compatibility, charging speed, and capacity you desire without breaking the bank or being too bulky for your needs. \n\nRemember, it's always beneficial to refer to verified user reviews and expert opinions to ensure the product aligns with your requirements before making a purchase!",
+  "usage": {
+    "prompt_tokens": 253,
+    "completion_tokens": 683,
+    "total_tokens": 936
+  },
+  "timestamp": "2025-10-27T15:15:33.637351",
+  "success": true,
+  "error": null,
+  "stats": {
+    "word_count": 402,
+    "char_count": 2541
+  }
+}
