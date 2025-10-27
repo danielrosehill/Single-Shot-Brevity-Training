@@ -35,7 +35,12 @@ Single-Shot-Brevity-Training/
 ├── evaluation/                # Evaluation framework
 │   ├── scripts/
 │   │   └── evaluate_models.py    # Main evaluation script
-│   ├── results/               # Timestamped evaluation results
+│   ├── responses/             # Model response data
+│   │   ├── json/              # Raw JSON responses with stats
+│   │   └── markdown/          # Human-readable response formats
+│   ├── analysis/              # Analysis results and visualizations
+│   │   ├── verbosity_analysis.png      # Comprehensive 4-panel chart
+│   │   └── verbosity_bar_chart.png     # Focused comparison chart
 │   ├── requirements.txt       # Python dependencies
 │   └── README.md             # Evaluation documentation
 ├── docs/                      # Project documentation
@@ -102,7 +107,60 @@ The evaluation uses a real-world product recommendation prompt (power bank selec
 
 See [prompts/test-prompt.md](prompts/test-prompt.md) for the full prompt.
 
-## Evaluation Metrics
+## Evaluation Results
+
+### Verbosity Analysis
+
+Based on the evaluation of 14 models using the standardized test prompt, we found dramatic variation in response length:
+
+**Key Finding:** Response length varied by **5.5x**, with the longest response containing 1,632 words versus the shortest at 295 words.
+
+#### Rankings (Longest to Shortest)
+
+| Rank | Model | Word Count | Verbosity Category |
+|------|-------|------------|-------------------|
+| 1 | openai/gpt-oss-120b | 1,632 | Extremely Verbose |
+| 2 | google/gemini-2.5-flash | 1,607 | Extremely Verbose |
+| 3 | z-ai/glm-4.6 | 1,231 | Very Verbose |
+| 4 | deepseek/deepseek-chat-v3.1 | 1,113 | Very Verbose |
+| 5 | google/gemini-2.5-pro | 1,097 | Very Verbose |
+| 6 | openai/gpt-5 | 987 | Very Verbose |
+| 7 | x-ai/grok-4 | 949 | Very Verbose |
+| 8 | moonshotai/kimi-k2-0905 | 594 | Moderately Verbose |
+| 9 | anthropic/claude-sonnet-4.5 | 459 | **Concise** |
+| 10 | cohere/command-r-08-2024 | 402 | **Concise** |
+| 11 | meta-llama/llama-4-maverick | 397 | **Concise** |
+| 12 | mistralai/mistral-large-2411 | 352 | **Very Concise** |
+| 13 | ai21/jamba-large-1.7 | 295 | **Very Concise** |
+
+#### Statistical Summary
+
+- **Mean:** 794 words
+- **Median:** 693 words
+- **Standard Deviation:** 456 words
+- **Range:** 295 - 1,632 words
+
+![Verbosity Analysis](evaluation/analysis/verbosity_bar_chart.png)
+
+#### Top 5 Most Concise Models
+
+These models provided focused, actionable responses under 460 words:
+
+1. **ai21/jamba-large-1.7** (295 words) - Most concise overall
+2. **mistralai/mistral-large-2411** (352 words) - Excellent balance
+3. **meta-llama/llama-4-maverick** (397 words) - Compact yet comprehensive
+4. **cohere/command-r-08-2024** (402 words) - Efficient delivery
+5. **anthropic/claude-sonnet-4.5** (459 words) - Quality with conciseness
+
+#### Most Verbose Models
+
+Models to avoid for brevity-focused applications (or requiring additional prompting):
+
+- **openai/gpt-oss-120b** (1,632 words) - 2x the average
+- **google/gemini-2.5-flash** (1,607 words) - Nearly as verbose
+- **z-ai/glm-4.6** (1,231 words) - Significantly above average
+
+### Evaluation Metrics
 
 Each response is analyzed for:
 - **Word count** - Primary brevity metric
@@ -127,13 +185,7 @@ This framework is useful for:
 - Quick research questions
 - Any scenario where direct, actionable answers are preferred over lengthy explanations
 
-## Contributing
-
-Contributions welcome! Areas of interest:
-- Additional test prompts for different use cases
-- Analysis tools for evaluating response quality
-- System prompt templates for different brevity levels
-- Comparisons with fine-tuning approaches
+ 
 
 ## License
 
@@ -145,6 +197,4 @@ Daniel Rosehill
 - Website: [danielrosehill.com](https://danielrosehill.com)
 - Email: public@danielrosehill.com
 
-## Acknowledgments
-
-Thanks to the OpenRouter team for providing unified access to multiple LLM providers, making this comparative evaluation possible.
+ 
